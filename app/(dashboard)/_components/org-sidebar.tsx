@@ -1,12 +1,11 @@
 'use client'
 
 import { OrganizationSwitcher } from '@clerk/nextjs'
-import { LayoutDashboard } from 'lucide-react'
+import { LayoutDashboard, Star } from 'lucide-react'
 import { Poppins } from 'next/font/google'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
-import React from 'react'
 import { Button } from '~/components/ui/button'
 import { cn } from '~/lib/utils'
 
@@ -17,13 +16,14 @@ const font = Poppins({
 
 const OrgSidebar = () => {
   const searchParams = useSearchParams()
-  const favorites = searchParams.get('favorites')
+
+  const favourites = searchParams.get('favourites')
 
   return (
     <div className="hidden w-[206px] flex-col space-y-6 pl-5 pt-5 lg:flex">
       <Link href="/">
         <div className="flex items-center gap-x-2">
-          <Image src="/logo.svg" alt="logo" height={60} width={60} />
+          <Image src="/logo.svg" alt="Logo" height={60} width={60} />
           <span className={cn('text-2xl font-semibold', font.className)}>
             Board
           </span>
@@ -42,8 +42,9 @@ const OrgSidebar = () => {
             organizationSwitcherTrigger: {
               padding: '6px',
               width: '100%',
-              borderRadius: '8px',
+              borderRadius: '6px',
               border: '1px solid #E5E7EB',
+              justifyContent: 'space-between',
               backgroundColor: 'white'
             }
           }
@@ -51,7 +52,7 @@ const OrgSidebar = () => {
       />
       <div className="w-full space-y-1">
         <Button
-          variant={favorites ? 'ghost' : 'secondary'}
+          variant="ghost"
           asChild
           size="lg"
           className="w-full justify-start px-2 font-normal"
@@ -61,9 +62,8 @@ const OrgSidebar = () => {
             Team Boards
           </Link>
         </Button>
-
         <Button
-          variant={!favorites ? 'ghost' : 'secondary'}
+          variant={favourites ? 'secondary' : 'ghost'}
           asChild
           size="lg"
           className="w-full justify-start px-2 font-normal"
@@ -71,11 +71,13 @@ const OrgSidebar = () => {
           <Link
             href={{
               pathname: '/',
-              query: { favorites: true }
+              query: {
+                favourites: 'true'
+              }
             }}
           >
-            <LayoutDashboard className="mr-2 size-4" />
-            Favorites Boards
+            <Star className="mr-2 size-4" />
+            Favourite Boards
           </Link>
         </Button>
       </div>

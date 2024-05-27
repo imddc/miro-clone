@@ -24,7 +24,7 @@ const NewButton = () => {
           </Hint>
         </div>
       </DialogTrigger>
-      <DialogContent className="max-w-[480px] border-none bg-transparent p-0">
+      <DialogContent className="max-w-[880px] border-none bg-transparent p-0">
         <CreateOrganization />
       </DialogContent>
     </Dialog>

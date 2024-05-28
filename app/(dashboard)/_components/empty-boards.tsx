@@ -34,7 +34,7 @@ const EmptyBoards = () => {
       </p>
       <div className="mt-6">
         <Button disabled={pending} size="lg" onClick={onClick}>
-          Create a favourite board
+          Create a favorite board
         </Button>
       </div>
     </div>

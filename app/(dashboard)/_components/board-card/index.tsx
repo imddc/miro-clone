@@ -22,7 +22,7 @@ interface BoardCardProps {
   authorName: string
   createdAt: number
   orgId: string
-  isFavourite: boolean
+  isFavorite: boolean
 }
 
 const BoardCard = ({
@@ -33,39 +33,39 @@ const BoardCard = ({
   authorId,
   orgId,
   createdAt,
-  isFavourite
+  isFavorite
 }: BoardCardProps) => {
   const { userId } = useAuth()
   const authorLable = userId === authorId ? 'You' : authorName
   const createAtLabel = formatDistanceToNow(createdAt, { addSuffix: true })
 
-  const { mutate: favouriteMutate, pending: favouritePending } = useApiMutation(
-    api.board.favourite
+  const { mutate: favoriteMutate, pending: favoritePending } = useApiMutation(
+    api.board.favorite
   )
-  const { mutate: unFavouriteMutate, pending: unFavouritePending } =
-    useApiMutation(api.board.unFavourite)
+  const { mutate: unFavoriteMutate, pending: unFavoritePending } =
+    useApiMutation(api.board.unFavorite)
 
-  const handleFavourite = () => {
-    if (!isFavourite) {
-      favouriteMutate({
+  const handleFavorite = () => {
+    if (!isFavorite) {
+      favoriteMutate({
         id,
         orgId
       })
         .then(() => {
-          toast.success('Favourited board')
+          toast.success('Favorited board')
         })
         .catch(() => {
-          toast.error('Fail to favourit')
+          toast.error('Fail to favorit')
         })
     } else {
-      unFavouriteMutate({
+      unFavoriteMutate({
         id
       })
         .then(() => {
-          toast.success('UnFavourited board')
+          toast.success('UnFavorited board')
         })
         .catch(() => {
-          toast.error('Fail to unFavourit')
+          toast.error('Fail to unFavorit')
         })
     }
   }
@@ -84,12 +84,12 @@ const BoardCard = ({
         </div>
 
         <BoardCardFooter
-          disabled={favouritePending || unFavouritePending}
-          isFavourite={isFavourite}
+          disabled={favoritePending || unFavoritePending}
+          isFavorite={isFavorite}
           title={title}
           authorLabel={authorLable}
           createdAtLabel={createAtLabel}
-          onClick={handleFavourite}
+          onClick={handleFavorite}
         />
       </div>
     </Link>

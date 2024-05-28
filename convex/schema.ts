@@ -15,7 +15,7 @@ export default defineSchema({
       filterFields: ['orgId']
     }),
 
-  userFavourites: defineTable({
+  userFavorites: defineTable({
     orgId: v.string(),
     userId: v.string(),
     boardId: v.id('boards')

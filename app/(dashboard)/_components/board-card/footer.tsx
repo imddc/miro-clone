@@ -3,7 +3,7 @@ import React from 'react'
 import { cn } from '~/lib/utils'
 
 interface BoardCardFooterProps {
-  isFavourite: boolean
+  isFavorite: boolean
   title: string
   authorLabel: string
   createdAtLabel: string
@@ -12,7 +12,7 @@ interface BoardCardFooterProps {
 }
 
 const BoardCardFooter = ({
-  isFavourite,
+  isFavorite,
   title,
   authorLabel,
   createdAtLabel,
@@ -44,7 +44,7 @@ const BoardCardFooter = ({
         <Star
           className={cn(
             'h-4 w-4',
-            isFavourite ? 'fill-blue-600' : 'text-blue-600'
+            isFavorite ? 'fill-blue-600' : 'text-blue-600'
           )}
         />
       </button>

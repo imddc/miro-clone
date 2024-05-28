@@ -1,4 +1,4 @@
-import { Star } from 'lucide-react'
+import { Star, StarOff, Stars } from 'lucide-react'
 import React from 'react'
 import { cn } from '~/lib/utils'
 
@@ -12,6 +12,7 @@ interface BoardCardFooterProps {
 }
 
 const BoardCardFooter = ({
+  isFavourite,
   title,
   authorLabel,
   createdAtLabel,
@@ -40,7 +41,12 @@ const BoardCardFooter = ({
         )}
         onClick={handleClick}
       >
-        <Star className="size-4" />
+        <Star
+          className={cn(
+            'h-4 w-4',
+            isFavourite ? 'fill-blue-600' : 'text-blue-600'
+          )}
+        />
       </button>
     </div>
   )

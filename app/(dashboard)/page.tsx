@@ -14,7 +14,6 @@ const DashboardPage = ({ searchParams }: DashboardPageProps) => {
 
   return (
     <div className="h-[calc(100%-80px)] flex-1 px-6">
-      {JSON.stringify(searchParams)}
       {!organization ? (
         <EmoptyOrg />
       ) : (

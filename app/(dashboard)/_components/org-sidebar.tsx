@@ -29,6 +29,7 @@ const OrgSidebar = () => {
           </span>
         </div>
       </Link>
+
       <OrganizationSwitcher
         hidePersonal
         appearance={{
@@ -50,6 +51,7 @@ const OrgSidebar = () => {
           }
         }}
       />
+
       <div className="w-full space-y-1">
         <Button
           variant="ghost"

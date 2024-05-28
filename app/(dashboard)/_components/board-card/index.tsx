@@ -6,8 +6,11 @@ import { MoreHorizontal } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import { toast } from 'sonner'
 import Actions from '~/components/actions'
 import { Skeleton } from '~/components/ui/skeleton'
+import { api } from '~/convex/_generated/api'
+import { useApiMutation } from '~/hooks/use-api-mutation'
 import BoardCardFooter from './footer'
 import BoardCardOverlay from './overlay'
 
@@ -28,12 +31,44 @@ const BoardCard = ({
   title,
   authorName,
   authorId,
+  orgId,
   createdAt,
   isFavourite
 }: BoardCardProps) => {
   const { userId } = useAuth()
   const authorLable = userId === authorId ? 'You' : authorName
   const createAtLabel = formatDistanceToNow(createdAt, { addSuffix: true })
+
+  const { mutate: favouriteMutate, pending: favouritePending } = useApiMutation(
+    api.board.favourite
+  )
+  const { mutate: unFavouriteMutate, pending: unFavouritePending } =
+    useApiMutation(api.board.unFavourite)
+
+  const handleFavourite = () => {
+    if (!isFavourite) {
+      favouriteMutate({
+        id,
+        orgId
+      })
+        .then(() => {
+          toast.success('Favourited board')
+        })
+        .catch(() => {
+          toast.error('Fail to favourit')
+        })
+    } else {
+      unFavouriteMutate({
+        id
+      })
+        .then(() => {
+          toast.success('UnFavourited board')
+        })
+        .catch(() => {
+          toast.error('Fail to unFavourit')
+        })
+    }
+  }
 
   return (
     <Link href={`/board/${id}`}>
@@ -49,11 +84,12 @@ const BoardCard = ({
         </div>
 
         <BoardCardFooter
+          disabled={favouritePending || unFavouritePending}
           isFavourite={isFavourite}
           title={title}
           authorLabel={authorLable}
           createdAtLabel={createAtLabel}
-          onClick={() => {}}
+          onClick={handleFavourite}
         />
       </div>
     </Link>

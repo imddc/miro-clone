@@ -43,7 +43,19 @@ export const remove = mutation({
       throw new Error('Unauthorized')
     }
 
-    // TODO: later check to delete favourite relation well
+    const userId = identity.subject
+
+    const existingFavorite = await ctx.db
+      .query('userFavourites')
+      .withIndex('by_user_board', (q) =>
+        q.eq('userId', userId).eq('boardId', args.id)
+      )
+      .unique()
+
+    if (existingFavorite) {
+      await ctx.db.delete(existingFavorite._id)
+    }
+
     await ctx.db.delete(args.id)
   }
 })

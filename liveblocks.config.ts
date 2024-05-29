@@ -2,50 +2,7 @@ import { createClient } from '@liveblocks/client'
 import { createLiveblocksContext, createRoomContext } from '@liveblocks/react'
 
 const client = createClient({
-  publicApiKey: 'pk_prod_L3Y1O1UAVtp1IWdquHJD16FZruL2gISn9RwCX2E3K0s',
-
-  // authEndpoint: "/api/liveblocks-auth",
-  // throttle: 100,
-  async resolveUsers({ userIds }) {
-    // Used only for Comments and Notifications. Return a list of user information
-    // retrieved from `userIds`. This info is used in comments, mentions etc.
-
-    // const usersData = await __fetchUsersFromDB__(userIds);
-    //
-    // return usersData.map((userData) => ({
-    //   name: userData.name,
-    //   avatar: userData.avatar.src,
-    // }));
-
-    return []
-  },
-  async resolveMentionSuggestions({ text }) {
-    // Used only for Comments. Return a list of userIds that match `text`.
-    // These userIds are used to create a mention list when typing in the
-    // composer.
-    //
-    // For example when you type "@jo", `text` will be `"jo"`, and
-    // you should to return an array with John and Joanna's userIds:
-    // ["john@example.com", "joanna@example.com"]
-
-    // const users = await getUsers({ search: text });
-    // return users.map((user) => user.id);
-
-    return []
-  },
-  async resolveRoomsInfo({ roomIds }) {
-    // Used only for Comments and Notifications. Return a list of room information
-    // retrieved from `roomIds`.
-
-    // const roomsData = await __fetchRoomsFromDB__(roomIds);
-    //
-    // return roomsData.map((roomData) => ({
-    //   name: roomData.name,
-    //   url: roomData.url,
-    // }));
-
-    return []
-  }
+  authEndpoint: '/api/liveblocks-auth'
 })
 
 // Presence represents the properties that exist on every user in the Room
@@ -69,8 +26,12 @@ type Storage = {
 // provided by your own custom auth back end (if used). Useful for data that
 // will not change during a session, like a user's name or avatar.
 type UserMeta = {
-  // id?: string,  // Accessible through `user.id`
-  // info?: Json,  // Accessible through `user.info`
+  id: string
+  // Example, use any JSON-compatible data in your metadata
+  info: {
+    name: string
+    picture: string
+  }
 }
 
 // Optionally, the type of custom events broadcast and listened to in this

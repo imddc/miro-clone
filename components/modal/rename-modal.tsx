@@ -33,11 +33,11 @@ const RenameModal = () => {
       title
     })
       .then(() => {
-        toast('Updated board')
+        toast.success('Updated board!')
         onClose()
       })
       .catch(() => {
-        toast.error('Failed to update board')
+        toast.error('Failed to update board!')
       })
   }
 

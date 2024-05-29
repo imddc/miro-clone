@@ -17,56 +17,56 @@ export enum LayerType {
   Note
 }
 
-export type RectangleLeyer = {
+export type RectangleLayer = {
   type: LayerType.Rectangle
   x: number
   y: number
-  heright: number
+  height: number
   width: number
   fill: Color
   value?: string
 }
 
-export type EllipseLeyer = {
+export type EllipseLayer = {
   type: LayerType.Rectangle
   x: number
   y: number
-  heright: number
+  height: number
   width: number
   fill: Color
   value?: string
 }
 
-export type PathLeyer = {
+export type PathLayer = {
   type: LayerType.Rectangle
   x: number
   y: number
-  heright: number
+  height: number
   width: number
   fill: Color
-  points: number[][]
+  points?: number[][]
   value?: string
 }
 
-export type TextLeyer = {
+export type TextLayer = {
   type: LayerType.Rectangle
   x: number
   y: number
-  heright: number
+  height: number
   width: number
   fill: Color
-  points: number[][]
+  points?: number[][]
   value?: string
 }
 
-export type NoteLeyer = {
+export type NoteLayer = {
   type: LayerType.Rectangle
   x: number
   y: number
-  heright: number
+  height: number
   width: number
   fill: Color
-  points: number[][]
+  points?: number[][]
   value?: string
 }
 
@@ -132,3 +132,10 @@ export enum CanvasMode {
   Resizing,
   Pencil
 }
+
+export type Layer =
+  | RectangleLayer
+  | EllipseLayer
+  | PathLayer
+  | TextLayer
+  | NoteLayer

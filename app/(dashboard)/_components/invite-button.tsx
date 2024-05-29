@@ -1,5 +1,3 @@
-'use client'
-
 import { OrganizationProfile } from '@clerk/nextjs'
 import { Plus } from 'lucide-react'
 import React from 'react'

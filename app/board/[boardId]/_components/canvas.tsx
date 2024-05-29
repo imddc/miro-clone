@@ -1,12 +1,16 @@
 import React from 'react'
-import BoardIdInfo from './info'
+import Info from './info'
 import Participants from './participants'
 import Toolbar from './toolbar'
 
-const Canvas = () => {
+interface CanvasProps {
+  boardId: string
+}
+
+const Canvas = ({ boardId }: CanvasProps) => {
   return (
     <main className="relative size-full touch-none bg-neutral-100">
-      <BoardIdInfo />
+      <Info />
       <Participants />
       <Toolbar />
     </main>

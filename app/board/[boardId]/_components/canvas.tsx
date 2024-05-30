@@ -5,6 +5,7 @@ import { nanoid } from 'nanoid'
 import React, { useCallback, useMemo, useState } from 'react'
 import {
   connectionId2Color,
+  findIntersectingLayersWithRectangle,
   pointerEvent2CanvasPoint,
   resizeBounds
 } from '~/lib/utils'
@@ -156,6 +157,39 @@ const Canvas = ({ boardId }: CanvasProps) => {
     [canvasState]
   )
 
+  // multiSelect
+
+  const startMultiSelection = useCallback((current: Point, origin: Point) => {
+    if (Math.abs(current.x - origin.x) + Math.abs(current.y - origin.y) > 5) {
+      setCanvasState({
+        mode: CanvasMode.SelectionNet,
+        origin,
+        current
+      })
+    }
+  }, [])
+
+  const updateSelectionNet = useMutation(
+    ({ storage, setMyPresence }, current: Point, origin: Point) => {
+      const layers = storage.get('layers').toImmutable()
+      setCanvasState({
+        mode: CanvasMode.SelectionNet,
+        origin,
+        current
+      })
+
+      const ids = findIntersectingLayersWithRectangle(
+        layerIds,
+        layers,
+        origin,
+        current
+      )
+
+      setMyPresence({ selection: ids })
+    },
+    []
+  )
+
   const onWheel = useCallback((e: React.WheelEvent) => {
     setCamera((camera) => ({
       x: camera.x - e.deltaX,
@@ -168,7 +202,11 @@ const Canvas = ({ boardId }: CanvasProps) => {
       e.preventDefault()
       const current = pointerEvent2CanvasPoint(e, camera)
 
-      if (canvasState.mode === CanvasMode.Translating) {
+      if (canvasState.mode === CanvasMode.Pressing) {
+        startMultiSelection(current, canvasState.origin)
+      } else if (canvasState.mode === CanvasMode.SelectionNet) {
+        updateSelectionNet(current, canvasState.origin)
+      } else if (canvasState.mode === CanvasMode.Translating) {
         translateSelectedLayer(current)
       } else if (canvasState.mode === CanvasMode.Resizing) {
         resizeSelectedLayer(current)

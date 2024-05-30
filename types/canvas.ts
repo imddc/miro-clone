@@ -10,11 +10,11 @@ export type Camera = {
 }
 
 export enum LayerType {
+  Text,
+  Note,
   Rectangle,
   Ellipse,
-  Path,
-  Text,
-  Note
+  Path
 }
 
 export type RectangleLayer = {
@@ -28,7 +28,7 @@ export type RectangleLayer = {
 }
 
 export type EllipseLayer = {
-  type: LayerType.Rectangle
+  type: LayerType.Ellipse
   x: number
   y: number
   height: number
@@ -38,35 +38,33 @@ export type EllipseLayer = {
 }
 
 export type PathLayer = {
-  type: LayerType.Rectangle
+  type: LayerType.Path
   x: number
   y: number
   height: number
   width: number
   fill: Color
-  points?: number[][]
+  points: number[][]
   value?: string
 }
 
 export type TextLayer = {
-  type: LayerType.Rectangle
+  type: LayerType.Text
   x: number
   y: number
   height: number
   width: number
   fill: Color
-  points?: number[][]
   value?: string
 }
 
 export type NoteLayer = {
-  type: LayerType.Rectangle
+  type: LayerType.Note
   x: number
   y: number
   height: number
   width: number
   fill: Color
-  points?: number[][]
   value?: string
 }
 
@@ -84,9 +82,9 @@ export type XYWH = {
 
 export enum Side {
   Top = 1,
-  Bottom = 1,
-  Left = 1,
-  Right = 1
+  Bottom = 2,
+  Left = 4,
+  Right = 8
 }
 
 export type CanvasState =

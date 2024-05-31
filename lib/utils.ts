@@ -1,6 +1,15 @@
 import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
-import { Camera, Color, Layer, Point, Side, XYWH } from '~/types/canvas'
+import {
+  Camera,
+  Color,
+  Layer,
+  LayerType,
+  PathLayer,
+  Point,
+  Side,
+  XYWH
+} from '~/types/canvas'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))

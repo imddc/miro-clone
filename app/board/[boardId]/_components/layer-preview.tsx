@@ -5,6 +5,7 @@ import { useStorage } from '~/liveblocks.config'
 import { LayerType } from '~/types/canvas'
 import Ellipse from './ellipse'
 import Rectangle from './rectangle'
+import Text from './text'
 
 interface LayerPreviewProps {
   id: string
@@ -43,7 +44,7 @@ const LayerPreview = memo(
       //   //     stroke={selectionColor}
       //   //   />
       // }
-      //
+
       // case LayerType.Note: {
       //   // return (
       //   //   <Note
@@ -54,18 +55,18 @@ const LayerPreview = memo(
       //   //   />
       //   // );
       // }
-      //
-      // case LayerType.Text: {
-      //   // return (
-      //   //   <Text
-      //   //     id={id}
-      //   //     layer={layer}
-      //   //     onPointerDown={onLayerPointerDown}
-      //   //     selectionColor={selectionColor}
-      //   //   />
-      //   // );
-      // }
-      //
+
+      case LayerType.Text: {
+        return (
+          <Text
+            id={id}
+            layer={layer}
+            onPointerDown={onLayerPointerDown}
+            selectionColor={selectionColor}
+          />
+        )
+      }
+
       case LayerType.Ellipse: {
         return (
           <Ellipse
@@ -78,7 +79,7 @@ const LayerPreview = memo(
       }
 
       default:
-        // console.warn('Unknown layer type')
+        console.warn('Unknown layer type')
         return null
     }
   }

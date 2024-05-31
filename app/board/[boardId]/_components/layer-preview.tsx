@@ -3,6 +3,7 @@
 import { memo } from 'react'
 import { useStorage } from '~/liveblocks.config'
 import { LayerType } from '~/types/canvas'
+import Ellipse from './ellipse'
 import Rectangle from './rectangle'
 
 interface LayerPreviewProps {
@@ -65,16 +66,16 @@ const LayerPreview = memo(
       //   // );
       // }
       //
-      // case LayerType.Ellipse: {
-      //   // return (
-      //   //   <Ellipse
-      //   //     id={id}
-      //   //     layer={layer}
-      //   //     onPointerDown={onLayerPointerDown}
-      //   //     selectionColor={selectionColor}
-      //   //   />
-      //   // );
-      // }
+      case LayerType.Ellipse: {
+        return (
+          <Ellipse
+            id={id}
+            layer={layer}
+            onPointerDown={onLayerPointerDown}
+            selectionColor={selectionColor}
+          />
+        )
+      }
 
       default:
         // console.warn('Unknown layer type')

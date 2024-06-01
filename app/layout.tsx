@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import '~/styles/globals.css'
+import { Suspense } from 'react'
+import Loading from '~/components/auth/loading'
 import { Toaster } from '~/components/ui/sonner'
 import { ConvexClientProvider } from '~/providers/convex-client-provider'
 import ModalProviders from '~/providers/modal-providers'
@@ -26,11 +28,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ConvexClientProvider>
-          <Toaster />
-          <ModalProviders />
-          {children}
-        </ConvexClientProvider>
+        <Suspense fallback={<Loading />}>
+          <ConvexClientProvider>
+            <Toaster />
+            <ModalProviders />
+            {children}
+          </ConvexClientProvider>
+        </Suspense>
       </body>
     </html>
   )

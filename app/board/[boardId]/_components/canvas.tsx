@@ -2,7 +2,9 @@
 
 import { LiveObject } from '@liveblocks/client'
 import { nanoid } from 'nanoid'
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import { useDeleteLayers } from '~/hooks/use-delete-layers'
+import { useDisablScrollBounce } from '~/hooks/use-disable-scroll-bounce'
 import {
   colorToCss,
   connectionId2Color,
@@ -60,6 +62,7 @@ const Canvas = ({ boardId }: CanvasProps) => {
     b: 0
   })
 
+  useDisablScrollBounce()
   const history = useHistory()
   const canUndo = useCanUndo()
   const canRedo = useCanRedo()
@@ -399,6 +402,33 @@ const Canvas = ({ boardId }: CanvasProps) => {
     },
     [history]
   )
+
+  const deleteLayer = useDeleteLayers()
+  useEffect(() => {
+    function onKeyDown(e: KeyboardEvent) {
+      switch (e.key) {
+        case 'z': {
+          if (e.ctrlKey || e.metaKey) {
+            if (e.shiftKey) {
+              history.redo()
+            } else {
+              history.undo()
+            }
+          }
+
+          break
+        }
+        case 'Backspace': {
+          deleteLayer()
+          break
+        }
+      }
+    }
+    document.addEventListener('keydown', onKeyDown)
+    return () => {
+      document.removeEventListener('keydown', onKeyDown)
+    }
+  }, [history, deleteLayer])
 
   return (
     <main className="relative size-full touch-none bg-neutral-100">

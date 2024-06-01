@@ -45,13 +45,14 @@ const Text = ({ id, layer, onPointerDown, selectionColor }: TextProps) => {
       y={y}
       height={height}
       width={width}
+      onPointerDown={(e) => onPointerDown(e, id)}
       style={{
         outline: selectionColor ? `1px solid ${selectionColor}` : 'none'
       }}
-      onPointerDown={(e) => onPointerDown(e, id)}
     >
       <ContentEditable
         html={value || 'Text'}
+        onChange={hanldeContentChange}
         className={cn(
           'flex h-full w-full items-center justify-center outline-none drop-shadow-md',
           font.className
@@ -60,7 +61,6 @@ const Text = ({ id, layer, onPointerDown, selectionColor }: TextProps) => {
           color: fill ? colorToCss(fill) : '#000',
           fontSize: calculateFontSize(width, height)
         }}
-        onChange={hanldeContentChange}
       />
     </foreignObject>
   )

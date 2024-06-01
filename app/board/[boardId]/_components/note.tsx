@@ -26,7 +26,12 @@ const calculateFontSize = (width: number, height: number) => {
   return Math.min(maxFontSize, fontSizeBasedOnHeight, fontSizeBasedOnWidth)
 }
 
-const Note = ({ id, layer, onPointerDown, selectionColor }: NoteProps) => {
+export const Note = ({
+  id,
+  layer,
+  selectionColor,
+  onPointerDown
+}: NoteProps) => {
   const { x, y, width, height, fill, value } = layer
 
   const updateValue = useMutation(({ storage }, newValue: string) => {

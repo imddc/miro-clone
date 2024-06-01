@@ -1,10 +1,12 @@
 'use client'
 
 import { memo } from 'react'
+import { colorToCss } from '~/lib/utils'
 import { useStorage } from '~/liveblocks.config'
 import { LayerType } from '~/types/canvas'
 import Ellipse from './ellipse'
 import Note from './note'
+import { Path } from './path'
 import Rectangle from './rectangle'
 import Text from './text'
 
@@ -34,17 +36,18 @@ const LayerPreview = memo(
         )
       }
 
-      // case LayerType.Path: {
-      //   return <div>1</div>
-      //   //   <Path
-      //   //     points={layer.points}
-      //   //     onPointerDown={(e) => onLayerPointerDown(e, id)}
-      //   //     x={layer.x}
-      //   //     y={layer.y}
-      //   //     fill={layer.fill ? colorToCss(layer.fill) : "#000"}
-      //   //     stroke={selectionColor}
-      //   //   />
-      // }
+      case LayerType.Path: {
+        return (
+          <Path
+            points={layer.points}
+            onPointerDown={(e) => onLayerPointerDown(e, id)}
+            x={layer.x}
+            y={layer.y}
+            fill={layer.fill ? colorToCss(layer.fill) : '#000'}
+            stroke={selectionColor}
+          />
+        )
+      }
 
       case LayerType.Note: {
         return (

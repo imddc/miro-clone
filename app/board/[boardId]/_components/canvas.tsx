@@ -419,7 +419,9 @@ const Canvas = ({ boardId }: CanvasProps) => {
           break
         }
         case 'Backspace': {
-          deleteLayer()
+          if (e.shiftKey) {
+            deleteLayer()
+          }
           break
         }
       }
